@@ -9,6 +9,9 @@
   "scripts": {
     "build": "tsup && chmod +x dist/index.js",
     "dev": "tsx src/index.ts",
+    "install:global": "pnpm run build && pnpm link --global",
+    "uninstall:global": "pnpm unlink --global ghprai",
+    "reinstall:global": "pnpm run uninstall:global && pnpm run install:global",
     "check": "biome check ./src",
     "fix": "biome check --write ./src",
     "typecheck": "tsc --noEmit"

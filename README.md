@@ -18,6 +18,25 @@ pnpm install
 pnpm run build
 ```
 
+Install as a global command (`ghprai`):
+
+```bash
+pnpm run install:global
+ghprai --help
+```
+
+If you update the CLI often during development:
+
+```bash
+pnpm run reinstall:global
+```
+
+Remove the global command:
+
+```bash
+pnpm run uninstall:global
+```
+
 Run locally:
 
 ```bash
@@ -29,6 +48,15 @@ Run built CLI:
 ```bash
 node dist/index.js --help
 ```
+
+Alternative without global install:
+
+```bash
+pnpm exec ghprai --help
+```
+
+If `ghprai` is not found after global install, ensure your package manager global bin is in `PATH`.
+You can always run with `pnpm exec ghprai --help` as a fallback.
 
 ## Commands Overview
 
@@ -42,7 +70,7 @@ release create                Create a release tag and GitHub release notes
 ## Version Check
 
 ```bash
-node dist/index.js version
+ghprai version
 ```
 
 Outputs the current `ghprai` version and installed GitHub CLI version.
@@ -54,7 +82,7 @@ Generate a PR title/body from your branch diff and commit history, then optional
 ### Dry run (recommended first)
 
 ```bash
-node dist/index.js pr main --dry-run
+ghprai pr main --dry-run
 ```
 
 Dry run prints the generated PR title/body and does not call `gh pr create`.
@@ -62,7 +90,7 @@ Dry run prints the generated PR title/body and does not call `gh pr create`.
 ### Interactive PR creation
 
 ```bash
-node dist/index.js pr main
+ghprai pr main
 ```
 
 Default flow:
@@ -81,7 +109,7 @@ Use AI to review a pull request with clean-code and security-oriented suggestion
 ### Dry run
 
 ```bash
-node dist/index.js review 123 --dry-run
+ghprai review 123 --dry-run
 ```
 
 This generates:
@@ -96,7 +124,7 @@ No review is submitted in dry-run mode.
 ### Interactive suggestion mode (default)
 
 ```bash
-node dist/index.js review 123
+ghprai review 123
 ```
 
 After generation, you can:
@@ -109,10 +137,10 @@ After generation, you can:
 ### Review options
 
 ```bash
-node dist/index.js review 123 --instruction "Focus on test coverage and naming clarity"
-node dist/index.js review 123 --mode request-changes
-node dist/index.js review 123 --inline
-node dist/index.js review 123 --inline --dry-run
+ghprai review 123 --instruction "Focus on test coverage and naming clarity"
+ghprai review 123 --mode request-changes
+ghprai review 123 --inline
+ghprai review 123 --inline --dry-run
 ```
 
 - `--instruction <text>`: custom reviewer focus/tone
@@ -139,7 +167,7 @@ Create release tags and GitHub releases with notes generated from commits.
 ### Dry run release
 
 ```bash
-node dist/index.js release create --dry-run
+ghprai release create --dry-run
 ```
 
 This shows:
@@ -153,7 +181,7 @@ No release is created in dry-run mode.
 ### Create release interactively
 
 ```bash
-node dist/index.js release create
+ghprai release create
 ```
 
 Interactive selection includes:
@@ -165,7 +193,7 @@ Interactive selection includes:
 ### Common release options
 
 ```bash
-node dist/index.js release create --base main --from v1.2.3 --tag v1.3.0 --yes
+ghprai release create --base main --from v1.2.3 --tag v1.3.0 --yes
 ```
 
 - `--base <branch>`: base branch to release from
